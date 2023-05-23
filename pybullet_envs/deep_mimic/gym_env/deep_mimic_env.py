@@ -168,7 +168,7 @@ class HumanoidDeepBulletEnv(gym.Env):
     done = self._internal_env.is_episode_end()
     
     info = {}
-    return state, reward, done, info
+    return state, reward, done, False, info
 
   def reset(self):
     # use the initialization strategy
