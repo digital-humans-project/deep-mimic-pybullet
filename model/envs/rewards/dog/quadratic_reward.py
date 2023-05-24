@@ -1,16 +1,27 @@
 """
 Computing reward for Vanilla setup, constant target speed, quadratic kernels
 """
-import numpy as np
-from numpy.linalg import norm
-from pylocogym.envs.rewards.utils.utils import *
-
 import pickle
 import time
 
+import numpy as np
+from numpy.linalg import norm
 
-def compute_reward(observation_raw, dt, num_joints, params, feet_status, all_torques, action_buffer, is_obs_fullstate,
-                   joint_angles_default, nominal_base_height):
+from model.envs.rewards.utils.utils import *
+
+
+def compute_reward(
+    observation_raw,
+    dt,
+    num_joints,
+    params,
+    feet_status,
+    all_torques,
+    action_buffer,
+    is_obs_fullstate,
+    joint_angles_default,
+    nominal_base_height,
+):
     """
     Compute the reward based on observation (Vanilla Environment).
 
@@ -39,7 +50,7 @@ def compute_reward(observation_raw, dt, num_joints, params, feet_status, all_tor
     # - Use function params.get("weight_velocity", 0) to get the value of parameters set in the .conf file.
     forward_vel_reward = params.get("weight_velocity", 0) * 0
 
-    torque_reward =  0
+    torque_reward = 0
 
     smoothness1_reward = 0
 
@@ -63,7 +74,5 @@ def compute_reward(observation_raw, dt, num_joints, params, feet_status, all_tor
 
 
 def punishment(current_step, max_episode_steps, params):  # punishment for early termination
-    penalty = params['weight_early_penalty'] * (max_episode_steps - current_step)
+    penalty = params["weight_early_penalty"] * (max_episode_steps - current_step)
     return penalty
-
-

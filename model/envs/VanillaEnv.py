@@ -14,18 +14,15 @@ sys.modules["module.name"] = pyloco
 spec.loader.exec_module(pyloco)
 
 
-from pylocogym.data.deep_mimic_bob_adapter import (
+from model.data.deep_mimic_bob_adapter import (
     BobMotionDataFieldNames,
     DeepMimicMotionBobAdapter,
 )
-from pylocogym.data.deep_mimic_motion import (
-    DeepMimicMotion,
-    DeepMimicMotionDataFieldNames,
-)
-from pylocogym.data.forward_kinematics import ForwardKinematics
-from pylocogym.data.lerp_dataset import LerpMotionDataset
-from pylocogym.data.loop_dataset import LoopKeyframeMotionDataset
-from pylocogym.envs.rewards.bob.humanoid_reward import Reward
+from model.data.deep_mimic_motion import DeepMimicMotion, DeepMimicMotionDataFieldNames
+from model.data.forward_kinematics import ForwardKinematics
+from model.data.lerp_dataset import LerpMotionDataset
+from model.data.loop_dataset import LoopKeyframeMotionDataset
+from model.envs.rewards.bob.humanoid_reward import Reward
 
 
 class VanillaEnv(PylocoEnv):
@@ -146,7 +143,7 @@ class VanillaEnv(PylocoEnv):
         next_t = (next_time - self.initial_time) * self.clips_play_speed + self.initial_time
         sample_retarget = self.lerp.eval(next_t)  # data after retargeting
         assert sample_retarget is not None
-        
+
         # run simulation
         action_applied = self.scale_action(action) + sample_retarget.q_fields.joints
         self._sim.step(action_applied)

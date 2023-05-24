@@ -3,8 +3,9 @@ from pathlib import Path
 from typing import Optional, Union
 
 import numpy as np
-from pylocogym.data.dataset import IterableKeyframeMotionDataset
-from pylocogym.data.deep_mimic_motion import (
+
+from model.data.dataset import IterableKeyframeMotionDataset
+from model.data.deep_mimic_motion import (
     DeepMimicKeyframeMotionDataSample,
     DeepMimicMotion,
 )

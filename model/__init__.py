@@ -1,1 +1,1 @@
-from pylocogym.envs import *
+import pybullet_envs  # noqa: F401

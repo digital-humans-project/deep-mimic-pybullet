@@ -12,7 +12,7 @@ except ImportError:
 
 from typing import Optional
 
-from pylocogym.data.dataset import IterableKeyframeMotionDataset, MotionDataSample
+from model.data.dataset import IterableKeyframeMotionDataset, MotionDataSample
 
 
 class ContinuousMotionDataset:

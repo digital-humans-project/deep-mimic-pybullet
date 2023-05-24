@@ -4,14 +4,15 @@ from pathlib import Path
 from typing import ClassVar, Dict, Optional, Tuple, Union
 
 import numpy as np
-from pylocogym.data.dataset import (
+from scipy.spatial.transform import Rotation as R
+
+from model.data.dataset import (
     Fields,
     KeyframeMotionDataSample,
     MotionDataSample,
     StrEnum,
 )
-from pylocogym.data.deep_mimic_motion import DeepMimicMotion
-from scipy.spatial.transform import Rotation as R
+from model.data.deep_mimic_motion import DeepMimicMotion
 
 
 def angular_velocities(q1, q2, dt):
@@ -176,7 +177,7 @@ class DeepMimicMotionBobAdapter(DeepMimicMotion):
         # our's x axis == -1 * motion's z axis
         # our's z axis == motion's x axis
         return np.array([-motion_clips_q[2], motion_clips_q[1], motion_clips_q[0]])
-    
+
     def __len__(self) -> int:
         len = super().__len__()
         if self.initial_pose is not None:
