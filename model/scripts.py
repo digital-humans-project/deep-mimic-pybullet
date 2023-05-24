@@ -141,7 +141,7 @@ def train(
     # evaluation w or w/o loaded vecnormalize wrapper: record video
     video_callback = RecordEvalCallback(
         eval_env,
-        eval_freq=100,
+        eval_freq=hyp_params["save_freq"],
         load_path=save_path,
         deterministic=True,
         render=False,
