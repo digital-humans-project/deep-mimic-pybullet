@@ -16,7 +16,7 @@
     "normalize_reward": false
   },
   "model_params": {
-    "log_std_init": -1.0,
+    "log_std_init": -1.3,
     "activation_fn": "ReLu",
     "network_architecture": {
       "pi": [
