@@ -1,16 +1,17 @@
-import numpy as np
 import math
-from pybullet_envs.deep_mimic.env.env import Env
-from pybullet_envs.deep_mimic.env.action_space import ActionSpace
-from pybullet_utils import bullet_client
-import time
-from pybullet_envs.deep_mimic.env import motion_capture_data
-from pybullet_envs.deep_mimic.env import humanoid_stable_pd
-import pybullet_data
-import pybullet as p1
 import random
-
+import time
 from enum import Enum
+
+import numpy as np
+import pybullet as p1
+from pybullet_utils import bullet_client
+
+import pybullet_data
+from pybullet_envs.deep_mimic.env import humanoid_stable_pd, motion_capture_data
+from pybullet_envs.deep_mimic.env.action_space import ActionSpace
+from pybullet_envs.deep_mimic.env.env import Env
+
 
 class InitializationStrategy(Enum):
   """Set how the environment is initialized."""
@@ -250,8 +251,8 @@ class PyBulletDeepMimicEnv(Env):
 
   def calc_reward(self, agent_id):
     kinPose = self._humanoid.computePose(self._humanoid._frameFraction)
-    reward = self._humanoid.getReward(kinPose)
-    return reward
+    reward, info_rew, info_errs = self._humanoid.getReward(kinPose)
+    return reward, info_rew, info_errs
 
   def set_action(self, agent_id, action):
     #print("action=",)
@@ -294,11 +295,13 @@ class PyBulletDeepMimicEnv(Env):
         #pos,orn=self._pybullet_client.getBasePositionAndOrientation(self._humanoid._sim_model)
         #self._pybullet_client.resetBasePositionAndOrientation(self._humanoid._kin_model, [pos[0]+3,pos[1],pos[2]],orn)
         #print("desiredPositions=",self.desiredPose)
+        #fmt: off
         maxForces = [
             0, 0, 0, 0, 0, 0, 0, 200, 200, 200, 200, 50, 50, 50, 50, 200, 200, 200, 200, 150, 90,
             90, 90, 90, 100, 100, 100, 100, 60, 200, 200, 200, 200, 150, 90, 90, 90, 90, 100, 100,
             100, 100, 60
         ]
+        #fmt: on
 
         if self._useStablePD:
           usePythonStablePD = False

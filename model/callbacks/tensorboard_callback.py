@@ -11,15 +11,17 @@ class TensorboardCallback(BaseCallback):
 
     def _on_step(self) -> bool:
         # Log scalar value (here a random variable)
-        infos = self.locals['infos']
-        for idx in range(self.locals['env'].num_envs):
+        infos = self.locals["infos"]
+        for idx in range(self.locals["env"].num_envs):
             # only if mean_episode_reward_terms exists in info
-            if 'mean_episode_reward_terms' not in infos[idx]:
+            if "mean_episode_reward_terms" not in infos[idx]:
                 continue
             # record log
-            if self.locals['dones'][idx]:
-                rew_infos = infos[idx]['mean_episode_reward_terms']
-                for key in rew_infos.keys():
-                    # check if more than 1 env is done, is the first env reward data overwritten?
-                    self.logger.record('reward_terms/' + key, rew_infos[key])
+            if self.locals["dones"][idx]:
+                rew_infos = infos[idx]["mean_episode_reward_terms"]
+                for k, v in rew_infos.items():
+                    self.logger.record("reward_terms/" + k, v)
+                err_infos = infos[idx]["mean_episode_errors"]
+                for k, v in err_infos.items():
+                    self.logger.record("error_terms/" + k, v)
         return True

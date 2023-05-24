@@ -1,7 +1,9 @@
-from pybullet_utils import pd_controller_stable
-from pybullet_envs.deep_mimic.env import humanoid_pose_interpolator
 import math
+
 import numpy as np
+from pybullet_utils import pd_controller_stable
+
+from pybullet_envs.deep_mimic.env import humanoid_pose_interpolator
 
 chest = 1
 neck = 2
@@ -964,7 +966,7 @@ class HumanoidStablePD(object):
       com_err=com_err
     )
     
-    return reward
+    return reward, info_rew, info_errs
 
   def computeCOMposVel(self, uid: int):
     """Compute center-of-mass position and velocity."""

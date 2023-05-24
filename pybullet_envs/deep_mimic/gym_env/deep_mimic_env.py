@@ -212,7 +212,7 @@ class HumanoidDeepBulletEnv(gym.Env):
             action = action * std + mean
 
         # Record reward
-        reward = self._internal_env.calc_reward(agent_id)
+        reward, info_rew, info_errs = self._internal_env.calc_reward(agent_id)
 
         # Apply control action
         self._internal_env.set_action(agent_id, action)
@@ -239,7 +239,7 @@ class HumanoidDeepBulletEnv(gym.Env):
         # Record done
         done = self._internal_env.is_episode_end()
 
-        info = {}
+        info = {"mean_episode_reward_terms": info_rew, "mean_episode_errors": info_errs}
         return state, reward, done, info
 
     def reset(self):
