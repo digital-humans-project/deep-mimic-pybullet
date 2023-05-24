@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pybullet_deep_mimic"
+version = "0.1.0"
+description = ""
+readme = "README.md"
+license = { text="Apache 2.0"}
+requires-python = ">=3.7.3"
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Programming Language :: Python",
+]
+dependencies = [
+    "pybullet==3.2.5",
+    "stable-baselines3==1.6.0",
+    "scipy",
+    "pylint",
+    "ffmpeg-python",
+    "moviepy",
+    "ffmpeg",
+    "tensorboard",
+    "wandb",
+    "pytest",
+    "mpi4py"
+]
+
+[tool.setuptools.packages.find]
+include = ["pybullet_envs*", "pybullet_data*"]
