@@ -28,4 +28,4 @@ dependencies = [
 ]
 
 [tool.setuptools.packages.find]
-include = ["pybullet_envs*", "pybullet_data*"]
+include = ["pybullet_envs*", "pybullet_data*", "model*"]
