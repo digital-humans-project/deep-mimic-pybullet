@@ -1,4 +1,5 @@
 import datetime
+import os
 import pathlib
 from shutil import copy as sh_copy
 
@@ -50,18 +51,13 @@ def train(
     # =============
 
     env_id = params["env_id"]
-    env_params = params["environment_params"]
     hyp_params = params["train_hyp_params"]
     model_params = params["model_params"]
-    reward_params = params["reward_params"]
 
     n_envs = hyp_params["num_envs"] if (not debug) else 1
     max_episode_steps = hyp_params.get("max_episode_steps", 500)
     max_evaluation_steps = hyp_params.get("max_evaluation_steps", 500)
     seed = hyp_params.get("seed", 313)
-
-    if reward_path is not None:
-        reward_params["reward_file_path"] = reward_path  # add reward path to reward params
 
     # =============
     # weights and biases
@@ -70,6 +66,7 @@ def train(
     if wandb_log:
         wandb.init(
             project="DH-Project",
+            entity="dh-project",
             name=save_path.split("/")[-1],
             config=params,
             sync_tensorboard=True,
@@ -209,7 +206,7 @@ def train(
     # save config file and reward file
     # =============
 
-    sh_copy(config_path, utils.os.path.join(save_path, "config.json"))
+    sh_copy(config_path, os.path.join(save_path, "config.json"))
 
     # =============
     # start training

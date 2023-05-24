@@ -10,7 +10,7 @@
     "time_steps": 45e6,
     "save_freq": 1e5,
     "max_episode_steps": 30,
-    "max_evaluation_steps": 500,
+    "max_evaluation_steps": 5000,
     "seed": 313,
     "normalize_observation": false,
     "normalize_reward": false
