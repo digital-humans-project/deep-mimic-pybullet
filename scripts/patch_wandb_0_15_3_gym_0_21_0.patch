@@ -1,0 +1,6 @@
+66,67c66,67
+<         if not self.enabled:
+<             return
+---
+>         # if not self.enabled:
+>         #     return

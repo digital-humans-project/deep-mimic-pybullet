@@ -22,7 +22,8 @@ dependencies = [
     "moviepy",
     "ffmpeg",
     "tensorboard",
-    "wandb",
+    "wandb==0.15.3",
+    "gym==0.21.0",
     "pytest",
     "mpi4py"
 ]

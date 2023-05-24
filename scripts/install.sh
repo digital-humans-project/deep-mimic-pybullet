@@ -6,3 +6,6 @@ python -m venv venv
 source venv/bin/activate
 pip install --upgrade pip
 pip install -e .
+
+# patch wandb to fix the incompatible version of gym
+patch venv/lib64/python3.9/site-packages/wandb/integration/gym/__init__.py patch_wandb_0_15_3_gym_0_21_0.patch
