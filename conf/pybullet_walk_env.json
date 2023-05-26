@@ -1,7 +1,11 @@
 {
   "env_id": "HumanoidDeepMimicWalkBulletEnv-v1",
   "train_hyp_params": {
-    "learning_rate": 3e-4,
+    "learning_rate": {
+      "policy": 5e-5,
+      "value": 1e-2,
+      "log_std": 3e-4
+    },
     "batch_size": 256,
     "n_epochs": 10,
     "num_envs": 16,
