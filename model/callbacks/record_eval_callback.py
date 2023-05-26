@@ -1,25 +1,26 @@
 import fnmatch
-import numpy as np
 import os
 
-from stable_baselines3.common.vec_env import VecNormalize
+import numpy as np
 from stable_baselines3.common.callbacks import EvalCallback
 from stable_baselines3.common.evaluation import evaluate_policy
+from stable_baselines3.common.vec_env import VecNormalize
 
 
 class RecordEvalCallback(EvalCallback):
-    def __init__(self,
-                 eval_env,
-                 eval_freq,
-                 load_path,
-                 deterministic,
-                 render,
-                 normalize,
-                 video_folder,
-                 record_video_trigger,
-                 video_length,
-                 name_prefix
-                 ):
+    def __init__(
+        self,
+        eval_env,
+        eval_freq,
+        load_path,
+        deterministic,
+        render,
+        normalize,
+        video_folder,
+        record_video_trigger,
+        video_length,
+        name_prefix,
+    ):
         self.load_path = load_path
         self.normalize = normalize
         self.video_folder = video_folder
@@ -27,17 +28,12 @@ class RecordEvalCallback(EvalCallback):
         self.video_length = video_length
         self.name_prefix = name_prefix
 
-        super().__init__(eval_env,
-                         eval_freq=eval_freq,
-                         deterministic=deterministic,
-                         render=render)
+        super().__init__(eval_env, eval_freq=eval_freq, deterministic=deterministic, render=render)
 
     def _on_step(self) -> bool:
-
         continue_training = True
 
-        if self.eval_freq > 0 and self.n_calls % self.eval_freq == 0:
-
+        if self.n_calls == 1 or (self.eval_freq > 0 and self.n_calls % self.eval_freq == 0):
             # Sync training and eval env if there is VecNormalize
             # if self.model.get_vec_normalize_env() is not None:
             #     try:
@@ -52,7 +48,7 @@ class RecordEvalCallback(EvalCallback):
             if self.normalize:
                 index = 0
                 for file in os.listdir(self.load_path):
-                    if fnmatch.fnmatch(file, 'vecnormalize*'):
+                    if fnmatch.fnmatch(file, "vecnormalize*"):
                         if int(file.split("_")[1]) >= index:
                             index = int(file.split("_")[1])
                 vecnormalize_path = self.load_path + "/vecnormalize_" + str(index) + "_steps.pkl"
@@ -102,7 +98,9 @@ class RecordEvalCallback(EvalCallback):
 
             if self.verbose > 0:
                 print(
-                    f"Eval num_timesteps={self.num_timesteps}, " f"episode_reward={mean_reward:.2f} +/- {std_reward:.2f}")
+                    f"Eval num_timesteps={self.num_timesteps}, "
+                    f"episode_reward={mean_reward:.2f} +/- {std_reward:.2f}"
+                )
                 print(f"Episode length: {mean_ep_length:.2f} +/- {std_ep_length:.2f}")
             # Add to current Logger
             self.logger.record("eval/mean_reward", float(mean_reward))
