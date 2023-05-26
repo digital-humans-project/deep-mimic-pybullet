@@ -1,19 +1,41 @@
 # for testing
 # added collect / train time log
 import time
-from typing import Optional
+from typing import Optional, Union
 
 import numpy as np
 import torch as th
 from gym import spaces
 from stable_baselines3 import PPO
-from stable_baselines3.common.type_aliases import GymEnv, MaybeCallback
-from stable_baselines3.common.utils import (
-    explained_variance,
-    get_schedule_fn,
-    safe_mean,
-)
+from stable_baselines3.common.type_aliases import GymEnv, MaybeCallback, Schedule
+from stable_baselines3.common.utils import explained_variance, safe_mean
 from torch.nn import functional as F
+
+
+class ConstantLrSchedule:
+    def __init__(self, value) -> None:
+        self.value = float(value)
+
+    def __call__(self, progress_remaining):
+        return self.value
+
+
+def get_schedule_fn(value_schedule: Union[Schedule, float, int]) -> Schedule:
+    """
+    Transform (if needed) learning rate and clip range (for PPO)
+    to callable.
+
+    :param value_schedule:
+    :return:
+    """
+    # If the passed schedule is a float
+    # create a constant function
+    if isinstance(value_schedule, (float, int)):
+        # Cast to float to avoid errors
+        value_schedule = ConstantLrSchedule(value_schedule)
+    else:
+        assert callable(value_schedule)
+    return value_schedule
 
 
 class CustomPPO(PPO):
