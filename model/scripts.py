@@ -16,7 +16,7 @@ from stable_baselines3.common.vec_env import (
     VecVideoRecorder,
 )
 
-from model.algorithms import CustomPPO
+from model.algorithms import CustomActorCriticPolicy, CustomPPO
 from model.callbacks import (
     CheckpointSaveCallback,
     RecordEvalCallback,
@@ -181,7 +181,7 @@ def train(
     )
 
     model = CustomPPO(
-        "MlpPolicy",
+        CustomActorCriticPolicy,
         env,
         learning_rate=hyp_params["learning_rate"],
         batch_size=hyp_params["batch_size"],
