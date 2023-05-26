@@ -1,12 +1,12 @@
 #!/bin/bash
 
-#SBATCH -n 16                              # Number of cores
+#SBATCH -n 20                              # Number of cores
 #SBATCH --time=24:00:00                    # hours:minutes:seconds
 #SBATCH --mem-per-cpu=2000
 #SBATCH --tmp=4000                        # per node!!
 #SBATCH --job-name=deep_mimic_walk
-#SBATCH --output=./jobs/deep_mimic_walk.out
-#SBATCH --error=./jobs/deep_mimic_walk.err
+#SBATCH --output=./out/deep_mimic_walk.out
+#SBATCH --error=./out/deep_mimic_walk.err
 #SBATCH --gpus=1
 
 source scripts/setup.sh
