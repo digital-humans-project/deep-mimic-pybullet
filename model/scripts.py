@@ -40,7 +40,6 @@ def train(
     debug,
     video_recorder,
     wandb_log,
-    reward_path=None,
     config_path="config.json",
 ):
     """create a model and train it"""
@@ -53,6 +52,7 @@ def train(
     env_id = params["env_id"]
     hyp_params = params["train_hyp_params"]
     model_params = params["model_params"]
+    env_params = params["env_params"]
 
     n_envs = hyp_params["num_envs"] if (not debug) else 1
     max_episode_steps = hyp_params.get("max_episode_steps", 500)
@@ -74,21 +74,16 @@ def train(
             dir=log_path,
         )
         wandb.save(config_path)
-        if reward_path is not None:
-            wandb.save(reward_path)
 
     # =============
     # create vectorized environment for training
     # =============
 
-    env_kwargs = dict(
-        renders=False,
-    )
     env = make_vec_env(
         env_id,
         n_envs=n_envs,
         seed=seed,
-        env_kwargs=env_kwargs,
+        env_kwargs=env_params,
         vec_env_cls=DummyVecEnv if debug else SubprocVecEnv,
     )
 
@@ -108,7 +103,7 @@ def train(
         env_id,
         n_envs=1,
         seed=seed,
-        env_kwargs=env_kwargs,
+        env_kwargs=env_params,
         vec_env_cls=DummyVecEnv,
     )
 

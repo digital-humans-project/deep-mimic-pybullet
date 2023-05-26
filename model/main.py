@@ -50,10 +50,11 @@ if __name__ == "__main__":
         # train parameters
         hyp_params = params["train_hyp_params"]
         steps = hyp_params["time_steps"]
-        dir_name = "{id}-{rew}-{steps:.1f}M".format(id=params["env_id"], rew=exp_name, steps=float(steps / 1e6))
+        env_params = params["env_params"]
+        arg_file = env_params.get("arg_file", "run_humanoid3d_unknown_args.txt")
+        motion_name = arg_file.lstrip("run_humanoid3d_").rstrip("_args.txt")
 
-        motion_clip_file = "humanoid3d_walk.txt"
-        motion_clip_file = os.path.join("data", "deepmimic", "motions", motion_clip_file)
+        dir_name = "{id}-{rew}-{steps:.1f}M".format(id=params["env_id"], rew=motion_name, steps=float(steps / 1e6))
 
         # training
         scripts.train(
@@ -64,5 +65,4 @@ if __name__ == "__main__":
             video_recorder=args.videoRecorder,
             wandb_log=args.wandb,
             config_path=config_path,
-            reward_path=motion_clip_file,
         )
