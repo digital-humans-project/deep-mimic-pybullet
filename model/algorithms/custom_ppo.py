@@ -39,36 +39,6 @@ def get_schedule_fn(value_schedule: Union[Schedule, float, int]) -> Schedule:
 
 
 class CustomPPO(PPO):
-    def __init__(
-        self,
-        policy,
-        env,
-        learning_rate,
-        batch_size,
-        n_epochs,
-        n_steps,
-        vf_coef,
-        gamma,
-        gae_lambda,
-        clip_range,
-        policy_kwargs,
-        seed,
-    ):
-        super().__init__(
-            policy=policy,
-            env=env,
-            learning_rate=learning_rate,
-            batch_size=batch_size,
-            n_epochs=n_epochs,
-            n_steps=n_steps,
-            gamma=gamma,
-            gae_lambda=gae_lambda,
-            clip_range=clip_range,
-            vf_coef=vf_coef,
-            policy_kwargs=policy_kwargs,
-            seed=seed,
-        )
-
     def _setup_lr_schedule(self) -> None:
         self.lr_schedule = {k: get_schedule_fn(v) for k, v in self.learning_rate.items()}
 
