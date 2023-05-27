@@ -46,6 +46,7 @@ class HumanoidDeepBulletEnv(gym.Env):
         time_step=1.0 / 240,
         rescale_actions=True,
         rescale_observations=True,
+        use_com_reward=False,
     ):
         """
         Args:
@@ -73,6 +74,7 @@ class HumanoidDeepBulletEnv(gym.Env):
         self._rescale_actions = rescale_actions
         self._rescale_observations = rescale_observations
         self.agent_id = -1
+        self._use_com_reward = use_com_reward
 
         self._numSteps = None
         self.test_mode = test_mode
@@ -250,7 +252,11 @@ class HumanoidDeepBulletEnv(gym.Env):
             else:
                 init_strat = InitializationStrategy.RANDOM
             self._internal_env = PyBulletDeepMimicEnv(
-                self._arg_parser, self._renders, time_step=self._time_step, init_strategy=init_strat
+                self._arg_parser,
+                self._renders,
+                time_step=self._time_step,
+                init_strategy=init_strat,
+                use_com_reward=self._use_com_reward,
             )
 
         self._internal_env.reset()
