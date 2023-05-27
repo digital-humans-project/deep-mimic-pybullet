@@ -25,7 +25,8 @@
     "test_mode": false,
     "time_step": 0.004166666666666667,
     "rescale_actions": true,
-    "rescale_observations": true
+    "rescale_observations": true,
+    "use_com_reward": true
   },
   "model_params": {
     "log_std_init": -1.3,
