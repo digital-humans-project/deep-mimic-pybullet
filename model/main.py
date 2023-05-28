@@ -52,12 +52,13 @@ if __name__ == "__main__":
         hyp_params = params["train_hyp_params"]
         steps = hyp_params["time_steps"]
         env_params = params["env_params"]
+
+        env_params.setdefault("arg_file", args.arg)
         arg_file = env_params.get("arg_file", "run_humanoid3d_unknown_args.txt")
-        motion_name = arg_file.lstrip("run_humanoid3d_").rstrip("_args.txt")
+        motion_name = arg_file.replace("run_humanoid3d_", "").replace("_args.txt", "")
 
         dir_name = "{id}-{rew}-{steps:.1f}M".format(id=params["env_id"], rew=motion_name, steps=float(steps / 1e6))
 
-        env_params.setdefault("arg_file", args.arg)
         # training
         scripts.train(
             params=params,
