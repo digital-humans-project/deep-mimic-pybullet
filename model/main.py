@@ -22,6 +22,7 @@ if __name__ == "__main__":
         action="store_true",
     )
     parser.add_argument("-c", "--config", help="Path to config file", required=False)
+    parser.add_argument("-a", "--arg", help="Path to env args file", required=False)
     # parser.add_argument('--rewardFile', help="Path to reward file", required=True)
     parser.add_argument("--logDir", help="Name of log directory to use for prediction", default="logs")
     parser.add_argument("--step", help="Predict using the model after n time steps of training", required=False)
@@ -56,6 +57,7 @@ if __name__ == "__main__":
 
         dir_name = "{id}-{rew}-{steps:.1f}M".format(id=params["env_id"], rew=motion_name, steps=float(steps / 1e6))
 
+        env_params.setdefault("arg_file", args.arg)
         # training
         scripts.train(
             params=params,
