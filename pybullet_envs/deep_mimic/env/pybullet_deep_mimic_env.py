@@ -1,4 +1,5 @@
 import math
+import pkgutil
 import random
 import time
 from enum import Enum
@@ -45,7 +46,17 @@ class PyBulletDeepMimicEnv(Env):
         #disable 'GUI' since it slows down a lot on Mac OSX and some other platforms
         self._pybullet_client.configureDebugVisualizer(self._pybullet_client.COV_ENABLE_GUI, 0)
       else:
-        self._pybullet_client = bullet_client.BulletClient()
+        self._pybullet_client = bullet_client.BulletClient(connection_mode=p1.DIRECT)
+        try:
+          con_mode = self._pybullet_client.getConnectionInfo()['connectionMethod']
+          if con_mode==self._pybullet_client.DIRECT:
+            egl = pkgutil.get_loader('eglRenderer')
+            if (egl):
+              self._pybullet_client.loadPlugin(egl.get_filename(), "_eglRendererPlugin")
+            else:
+              self._pybullet_client.loadPlugin("eglRendererPlugin")
+        except:
+          pass
 
       self._pybullet_client.setAdditionalSearchPath(pybullet_data.getDataPath())
       z2y = self._pybullet_client.getQuaternionFromEuler([-math.pi * 0.5, 0, 0])
