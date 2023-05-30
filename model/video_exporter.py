@@ -1,14 +1,16 @@
 import argparse
 import json
+import logging
 
-from tqdm import tqdm
-
-from model.envs.video_recoder import VecVideoRecorder
-
-
+import numpy as np
 from stable_baselines3 import PPO
 from stable_baselines3.common.env_util import make_vec_env
 from stable_baselines3.common.vec_env import DummyVecEnv
+from tqdm import tqdm
+import cv2 as cv
+from model.envs.video_recoder import VecVideoRecorder
+
+logging.basicConfig(level=logging.INFO)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -39,16 +41,18 @@ if __name__ == "__main__":
         topk=export_params["topk"],
     )
 
-    model = PPO.load(model_file, eval_env)
+    model = PPO.load(model_file, eval_env, device="cuda")
 
     obs = eval_env.reset()
     for ep in tqdm(range(export_params["max_steps"])):
         action, _ = model.predict(obs)
         obs, reward, done, info = eval_env.step(action)
-        eval_env.render()
-    input_fps = round(1.0 / env_kwargs["time_step"])
+        # cv.imshow("frame", info[0]["frame"][:, :, ::-1])
+        # cv.waitKey(1)
+    # input_fps = round(1.0 / env_kwargs["time_step"])
+
+    eval_env.close()
 
     export_dir = export_params["out_dir"]
     fps = export_params["fps"]
-    eval_env.save_videos(export_dir, export_params.get("input_fps", input_fps), fps)
-    eval_env.close()
+    eval_env.save_videos(export_dir, export_params["input_fps"], fps)
