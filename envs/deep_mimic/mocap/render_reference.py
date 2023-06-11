@@ -13,7 +13,7 @@ import random
 from pybullet_utils.bullet_client import BulletClient
 from deep_mimic.env.motion_capture_data import MotionCaptureData
 
-# from pybullet_envs.deep_mimic.env.humanoid_stable_pd import HumanoidStablePd
+# from envs.deep_mimic.env.humanoid_stable_pd import HumanoidStablePd
 from humanoid import Humanoid
 from humanoid import HumanoidPose
 

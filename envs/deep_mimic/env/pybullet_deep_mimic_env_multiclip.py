@@ -1,11 +1,11 @@
 import numpy as np
 import math
-from pybullet_envs.deep_mimic.env.env import Env
-from pybullet_envs.deep_mimic.env.action_space import ActionSpace
+from envs.deep_mimic.env.env import Env
+from envs.deep_mimic.env.action_space import ActionSpace
 from pybullet_utils import bullet_client
 import time
-from pybullet_envs.deep_mimic.env import motion_capture_data_multiclip
-from pybullet_envs.deep_mimic.env import humanoid_stable_pd_multiclip
+from envs.deep_mimic.env import motion_capture_data_multiclip
+from envs.deep_mimic.env import humanoid_stable_pd_multiclip
 import pybullet_data
 import pybullet as p1
 import random

@@ -25,7 +25,7 @@ from pybullet_utils.arg_parser import ArgParser
 from pybullet_utils.logger import Logger
 
 import pybullet_data
-from pybullet_envs.deep_mimic.env.pybullet_deep_mimic_env import (
+from envs.deep_mimic.env.pybullet_deep_mimic_env import (
     InitializationStrategy,
     PyBulletDeepMimicEnv,
 )

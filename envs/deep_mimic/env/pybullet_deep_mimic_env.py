@@ -9,9 +9,9 @@ import pybullet as p1
 from pybullet_utils import bullet_client
 
 import pybullet_data
-from pybullet_envs.deep_mimic.env import humanoid_stable_pd, motion_capture_data
-from pybullet_envs.deep_mimic.env.action_space import ActionSpace
-from pybullet_envs.deep_mimic.env.env import Env
+from envs.deep_mimic.env import humanoid_stable_pd, motion_capture_data
+from envs.deep_mimic.env.action_space import ActionSpace
+from envs.deep_mimic.env.env import Env
 
 
 class InitializationStrategy(Enum):

@@ -2,7 +2,7 @@ from pybullet_utils import bullet_client
 import time
 import math
 import motion_capture_data
-from pybullet_envs.deep_mimic.env import humanoid_stable_pd
+from envs.deep_mimic.env import humanoid_stable_pd
 import pybullet_data
 import pybullet as p1
 import humanoid_pose_interpolator

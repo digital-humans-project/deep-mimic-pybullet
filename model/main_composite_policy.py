@@ -17,7 +17,7 @@ from stable_baselines3 import PPO
 from stable_baselines3.common.env_util import make_vec_env
 from stable_baselines3.common.vec_env import DummyVecEnv
 
-import pybullet_envs  # noqa: F401 pylint: disable=unused-import
+import envs  # noqa: F401 pylint: disable=unused-import
 
 logging.basicConfig(level=logging.INFO)
 if __name__ == "__main__":
