@@ -5,7 +5,7 @@ os.sys.path.insert(0, parentdir)
 
 print('parent:', parentdir)
 
-import pybullet_data
+import data
 import pybullet
 import time
 import random
@@ -86,7 +86,7 @@ rot_seq = coord_seq_to_rot_seq(coord_seq=ground_truth, frame_duration=1 / fps)
 rot_seq_to_deepmimic_json(rot_seq=rot_seq, loop=loop, json_path=json_path)
 
 bc = BulletClient(connection_mode=pybullet.GUI)
-bc.setAdditionalSearchPath(pybullet_data.getDataPath())
+bc.setAdditionalSearchPath(data.getDataPath())
 bc.configureDebugVisualizer(bc.COV_ENABLE_Y_AXIS_UP, 1)
 bc.setGravity(0, -9.8, 0)
 motion = MotionCaptureData()

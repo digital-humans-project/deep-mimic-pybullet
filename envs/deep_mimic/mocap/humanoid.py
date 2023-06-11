@@ -5,7 +5,7 @@ parentdir = os.path.dirname(os.path.dirname(currentdir))
 os.sys.path.insert(0, parentdir)
 
 from pybullet_utils.bullet_client import BulletClient
-import pybullet_data
+import data
 
 jointTypes = [
     "JOINT_REVOLUTE", "JOINT_PRISMATIC", "JOINT_SPHERICAL", "JOINT_PLANAR", "JOINT_FIXED"
@@ -206,7 +206,7 @@ class Humanoid(object):
         pybullet_client.DIRECT
     )  # use SHARED_MEMORY for visual debugging, start a GUI physics server first
     self.kin_client.resetSimulation()
-    self.kin_client.setAdditionalSearchPath(pybullet_data.getDataPath())
+    self.kin_client.setAdditionalSearchPath(data.getDataPath())
     self.kin_client.configureDebugVisualizer(self.kin_client.COV_ENABLE_Y_AXIS_UP, 1)
     self.kin_client.setGravity(0, -9.8, 0)
 

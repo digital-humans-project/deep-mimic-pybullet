@@ -3,14 +3,14 @@ import time
 import math
 import motion_capture_data
 from envs.deep_mimic.env import humanoid_stable_pd
-import pybullet_data
+import data
 import pybullet as p1
 import humanoid_pose_interpolator
 import numpy as np
 
 pybullet_client = bullet_client.BulletClient(connection_mode=p1.GUI)
 
-pybullet_client.setAdditionalSearchPath(pybullet_data.getDataPath())
+pybullet_client.setAdditionalSearchPath(data.getDataPath())
 z2y = pybullet_client.getQuaternionFromEuler([-math.pi * 0.5, 0, 0])
 #planeId = pybullet_client.loadURDF("plane.urdf",[0,0,0],z2y)
 planeId = pybullet_client.loadURDF("plane_implicit.urdf", [0, 0, 0],
@@ -25,8 +25,8 @@ pybullet_client.setGravity(0, -9.8, 0)
 pybullet_client.setPhysicsEngineParameter(numSolverIterations=10)
 
 mocapData = motion_capture_data.MotionCaptureData()
-#motionPath = pybullet_data.getDataPath()+"/data/motions/humanoid3d_walk.txt"
-motionPath = pybullet_data.getDataPath() + "/data/motions/humanoid3d_walk.txt"
+#motionPath = data.getDataPath()+"/data/motions/humanoid3d_walk.txt"
+motionPath = data.getDataPath() + "/data/motions/humanoid3d_walk.txt"
 mocapData.Load(motionPath)
 timeStep = 1. / 60
 useFixedBase = False

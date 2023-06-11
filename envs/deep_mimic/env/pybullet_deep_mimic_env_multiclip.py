@@ -6,7 +6,7 @@ from pybullet_utils import bullet_client
 import time
 from envs.deep_mimic.env import motion_capture_data_multiclip
 from envs.deep_mimic.env import humanoid_stable_pd_multiclip
-import pybullet_data
+import data
 import pybullet as p1
 import random
 
@@ -46,7 +46,7 @@ class PyBulletDeepMimicEnvMultiClip(Env):
             else:
                 self._pybullet_client = bullet_client.BulletClient()
 
-            self._pybullet_client.setAdditionalSearchPath(pybullet_data.getDataPath())
+            self._pybullet_client.setAdditionalSearchPath(data.getDataPath())
             z2y = self._pybullet_client.getQuaternionFromEuler([-math.pi * 0.5, 0, 0])
             self._planeId = self._pybullet_client.loadURDF("plane_implicit.urdf", [0, 0, 0],
                                                            z2y,
@@ -63,7 +63,7 @@ class PyBulletDeepMimicEnvMultiClip(Env):
             motion_file = self._arg_parser.parse_strings('motion_file')
             print("motion_file=", motion_file[0])
 
-            motionPath = pybullet_data.getDataPath() + "/" + motion_file[0]
+            motionPath = data.getDataPath() + "/" + motion_file[0]
 
             self._mocapData.Load(motionPath)
             self._n_clips = self._mocapData.getNumClips()

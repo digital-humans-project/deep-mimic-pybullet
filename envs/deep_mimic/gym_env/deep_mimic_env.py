@@ -24,7 +24,7 @@ from pybullet_utils import bullet_client as bc
 from pybullet_utils.arg_parser import ArgParser
 from pybullet_utils.logger import Logger
 
-import pybullet_data
+import data
 from envs.deep_mimic.env.pybullet_deep_mimic_env import (
     InitializationStrategy,
     PyBulletDeepMimicEnv,
@@ -59,7 +59,7 @@ class HumanoidDeepBulletEnv(gym.Env):
         Logger.print2("===========================================================")
         succ = False
         if arg_file != "":
-            path = pybullet_data.getDataPath() + "/args/" + arg_file
+            path = data.getDataPath() + "/args/" + arg_file
             succ = self._arg_parser.load_file(path)
             Logger.print2(arg_file)
         assert succ, Logger.print2("Failed to load args from: " + arg_file)

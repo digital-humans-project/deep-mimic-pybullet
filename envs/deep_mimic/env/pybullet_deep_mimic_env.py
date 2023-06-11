@@ -8,7 +8,7 @@ import numpy as np
 import pybullet as p1
 from pybullet_utils import bullet_client
 
-import pybullet_data
+import data
 from envs.deep_mimic.env import humanoid_stable_pd, motion_capture_data
 from envs.deep_mimic.env.action_space import ActionSpace
 from envs.deep_mimic.env.env import Env
@@ -58,7 +58,7 @@ class PyBulletDeepMimicEnv(Env):
         except:
           pass
 
-      self._pybullet_client.setAdditionalSearchPath(pybullet_data.getDataPath())
+      self._pybullet_client.setAdditionalSearchPath(data.getDataPath())
       z2y = self._pybullet_client.getQuaternionFromEuler([-math.pi * 0.5, 0, 0])
       self._planeId = self._pybullet_client.loadURDF("plane_implicit.urdf", [0, 0, 0],
                                                      z2y,
@@ -75,8 +75,8 @@ class PyBulletDeepMimicEnv(Env):
       motion_file = self._arg_parser.parse_strings('motion_file')
       print("motion_file=", motion_file[0])
 
-      motionPath = pybullet_data.getDataPath() + "/" + motion_file[0]
-      #motionPath = pybullet_data.getDataPath()+"/motions/humanoid3d_backflip.txt"
+      motionPath = data.getDataPath() + "/" + motion_file[0]
+      #motionPath = data.getDataPath()+"/motions/humanoid3d_backflip.txt"
       self._mocapData.Load(motionPath)
       timeStep = self.timeStep
       useFixedBase = False

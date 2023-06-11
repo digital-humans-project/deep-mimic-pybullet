@@ -1,6 +1,6 @@
 import pybullet as p1
 from pybullet_utils import bullet_client
-import pybullet_data
+import data
 from pybullet_utils import pd_controller_stable
 
 import time
@@ -11,7 +11,7 @@ useKinematic = False
 useConstraints = False
 
 p = bullet_client.BulletClient(connection_mode=p1.GUI)
-p.setAdditionalSearchPath(pybullet_data.getDataPath())
+p.setAdditionalSearchPath(data.getDataPath())
 
 plane = p.loadURDF("plane.urdf")
 p.setGravity(0, 0, -10)
@@ -122,7 +122,7 @@ joints = []
 
 mocapData = motion_capture_data.MotionCaptureData()
 
-motionPath = pybullet_data.getDataPath() + "/data/motions/laikago_walk.txt"
+motionPath = data.getDataPath() + "/data/motions/laikago_walk.txt"
 
 mocapData.Load(motionPath)
 print("mocapData.NumFrames=", mocapData.NumFrames())
