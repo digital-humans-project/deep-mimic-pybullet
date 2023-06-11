@@ -47,6 +47,7 @@ class HumanoidDeepBulletEnv(gym.Env):
         rescale_actions=True,
         rescale_observations=True,
         use_com_reward=False,
+        render_size=(1280, 960),
     ):
         """
         Args:
@@ -69,8 +70,7 @@ class HumanoidDeepBulletEnv(gym.Env):
         self._renders = renders
         self._discrete_actions = False
         self._arg_file = arg_file
-        self._render_height = 400
-        self._render_width = 640
+        self._render_width, self._render_height = render_size
         self._rescale_actions = rescale_actions
         self._rescale_observations = rescale_observations
         self.agent_id = -1
@@ -295,13 +295,10 @@ class HumanoidDeepBulletEnv(gym.Env):
         self._cam_pitch = 0.3
         self._cam_yaw = 0
         if not self._p == None:
-            view_matrix = self._p.computeViewMatrixFromYawPitchRoll(
+            view_matrix = self._p.computeViewMatrix(
+                cameraEyePosition=base_pos + np.array([2, 1, -2]),
                 cameraTargetPosition=base_pos,
-                distance=self._cam_dist,
-                yaw=self._cam_yaw,
-                pitch=self._cam_pitch,
-                roll=0,
-                upAxisIndex=1,
+                cameraUpVector=[0, 1, 0],
             )
             proj_matrix = self._p.computeProjectionMatrixFOV(
                 fov=60, aspect=float(self._render_width) / self._render_height, nearVal=0.1, farVal=100.0
