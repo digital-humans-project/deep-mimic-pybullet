@@ -2,12 +2,14 @@ import argparse
 import json
 import logging
 
+import cv2 as cv
 import numpy as np
 from stable_baselines3 import PPO
 from stable_baselines3.common.env_util import make_vec_env
 from stable_baselines3.common.vec_env import DummyVecEnv
 from tqdm import tqdm
-import cv2 as cv
+
+from model.algorithms.custom_ppo import CustomPPO
 from model.envs.video_recoder import VecVideoRecorder
 
 logging.basicConfig(level=logging.INFO)
@@ -41,14 +43,14 @@ if __name__ == "__main__":
         topk=export_params["topk"],
     )
 
-    model = PPO.load(model_file, eval_env, device="cuda")
+    model = CustomPPO.load(model_file, eval_env, device="cuda")
 
     obs = eval_env.reset()
     for ep in tqdm(range(export_params["max_steps"])):
         action, _ = model.predict(obs)
         obs, reward, done, info = eval_env.step(action)
-        # cv.imshow("frame", info[0]["frame"][:, :, ::-1])
-        # cv.waitKey(1)
+        cv.imshow("frame", info[0]["frame"][:, :, ::-1])
+        cv.waitKey(1)
     # input_fps = round(1.0 / env_kwargs["time_step"])
 
     eval_env.close()
