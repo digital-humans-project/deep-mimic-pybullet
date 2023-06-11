@@ -1,0 +1,54 @@
+{
+  "env_id": "HumanoidDeepMimicBulletEnv-v1",
+  "export": {
+    "topk": 5,
+    "input_fps": 30,
+    "fps": 60,
+    "max_steps": 1000,
+    "max_length": 10,
+    "out_dir": "export/jog",
+    "model_file": "model_data/pybullet/2023-05-28-HumanoidDeepMimicBulletEnv-v1-jog-45.0M_3/model_44000000_steps.zip"
+  },
+  "train_hyp_params": {
+    "learning_rate": {
+      "policy": 5e-5,
+      "value": 1e-2,
+      "log_std": 3e-4
+    },
+    "batch_size": 256,
+    "n_epochs": 10,
+    "num_envs": 1,
+    "n_steps": 4096,
+    "vf_coef": 0.5,
+    "time_steps": 45e6,
+    "save_freq": 10,
+    "max_episode_steps": 30,
+    "max_evaluation_steps": 5000,
+    "seed": 313,
+    "normalize_observation": false,
+    "normalize_reward": false
+  },
+  "env_params": {
+    "renders": false,
+    "arg_file": "run_humanoid3d_jog_args.txt",
+    "test_mode": true,
+    "time_step": 0.004166666666666667,
+    "rescale_actions": true,
+    "rescale_observations": true,
+    "use_com_reward": true
+  },
+  "model_params": {
+    "log_std_init": -1.3,
+    "activation_fn": "ReLu",
+    "network_architecture": {
+      "pi": [
+        1024,
+        512
+      ],
+      "vf": [
+        1024,
+        512
+      ]
+    }
+  }
+}
