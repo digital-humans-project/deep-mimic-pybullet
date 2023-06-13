@@ -48,6 +48,7 @@ class HumanoidDeepBulletEnv(gym.Env):
         rescale_observations=True,
         use_com_reward=False,
         render_size=(1280, 960),
+        max_root_deviation=np.inf,
     ):
         """
         Args:
@@ -75,6 +76,7 @@ class HumanoidDeepBulletEnv(gym.Env):
         self._rescale_observations = rescale_observations
         self.agent_id = -1
         self._use_com_reward = use_com_reward
+        self._max_root_deviation = max_root_deviation
 
         self._numSteps = None
         self.test_mode = test_mode
@@ -240,6 +242,13 @@ class HumanoidDeepBulletEnv(gym.Env):
 
         # Record done
         done = self._internal_env.is_episode_end()
+
+        rootPosSim, rootOrnSim = self._internal_env._humanoid._pybullet_client.getBasePositionAndOrientation(self._internal_env._humanoid._sim_model)
+        rootPosKin, rootOrnKin = self._internal_env._humanoid._pybullet_client.getBasePositionAndOrientation(self._internal_env._humanoid._kin_model)
+        rootPosKin = np.array(rootPosKin)
+        rootPosSim = np.array(rootPosSim)
+        if np.linalg.norm(rootPosSim - rootPosKin) > self._max_root_deviation:
+            done = True
 
         info = {"mean_episode_reward_terms": info_rew, "mean_episode_errors": info_errs}
         return state, reward, done, info
