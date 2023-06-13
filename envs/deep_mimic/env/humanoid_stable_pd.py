@@ -23,7 +23,7 @@ jointFrictionForce = 0
 class HumanoidStablePD(object):
 
   def __init__( self, pybullet_client, mocap_data, timeStep, 
-                useFixedBase=True, arg_parser=None, useComReward=False):
+                useFixedBase=True, arg_parser=None, useComReward=False, alpha=0.4):
     self._pybullet_client = pybullet_client
     self._mocap_data = mocap_data
     self._arg_parser = arg_parser
@@ -65,7 +65,7 @@ class HumanoidStablePD(object):
         activationState=self._pybullet_client.ACTIVATION_STATE_SLEEP +
         self._pybullet_client.ACTIVATION_STATE_ENABLE_SLEEPING +
         self._pybullet_client.ACTIVATION_STATE_DISABLE_WAKEUP)
-    alpha = 0.4
+
     self._pybullet_client.changeVisualShape(self._kin_model, -1, rgbaColor=[1, 1, 1, alpha])
     for j in range(self._pybullet_client.getNumJoints(self._kin_model)):
       self._pybullet_client.setCollisionFilterGroupMask(self._kin_model,

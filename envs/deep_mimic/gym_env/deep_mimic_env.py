@@ -49,6 +49,7 @@ class HumanoidDeepBulletEnv(gym.Env):
         use_com_reward=False,
         render_size=(1280, 960),
         max_root_deviation=np.inf,
+        alpha=0.4,
     ):
         """
         Args:
@@ -77,6 +78,7 @@ class HumanoidDeepBulletEnv(gym.Env):
         self.agent_id = -1
         self._use_com_reward = use_com_reward
         self._max_root_deviation = max_root_deviation
+        self._alpha = alpha
 
         self._numSteps = None
         self.test_mode = test_mode
@@ -266,6 +268,7 @@ class HumanoidDeepBulletEnv(gym.Env):
                 time_step=self._time_step,
                 init_strategy=init_strat,
                 use_com_reward=self._use_com_reward,
+                alpha=self._alpha,
             )
 
         self._internal_env.reset()
