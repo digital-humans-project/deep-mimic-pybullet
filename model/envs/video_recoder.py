@@ -64,11 +64,11 @@ class VecVideoRecorder(VecEnvWrapper):
     
     def step_async(self, actions):
         if self.action_rescale:
-                actions = (actions - self.action_mean) / self.action_std
+                actions_rectified = (actions.copy() - self.action_mean) / self.action_std
         time_and_root = [self.time_per_frame, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0]
         for i in range(self.num_envs):
             curr_action = self.action_buffers[i]
-            curr_action.append(time_and_root+actions[i].tolist())
+            curr_action.append(time_and_root+actions_rectified[i].tolist())
         self.venv.step_async(actions)
 
     def step_wait(self) -> VecEnvStepReturn:
