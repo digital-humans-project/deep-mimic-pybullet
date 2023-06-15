@@ -103,7 +103,7 @@ def train(
         env_id,
         n_envs=1,
         seed=seed,
-        env_kwargs=env_params,
+        env_kwargs={**env_params, 'test_mode': True},
         vec_env_cls=DummyVecEnv,
     )
 

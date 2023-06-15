@@ -1,1 +1,1 @@
-import pybullet_envs  # noqa: F401
+import envs  # noqa: F401
