@@ -6,7 +6,15 @@
     "fps": 60,
     "max_steps": 1000,
     "max_length": 10,
-    "out_dir": "export/compose2"
+    "out_dir": "export/compose2",
+    "model_files": [
+      "model_data/pybullet/2023-05-29-HumanoidDeepMimicBulletEnv-v1-walk-45.0M_1/model_38000000_steps.zip",
+      "model_data/pybullet/2023-05-28-HumanoidDeepMimicBulletEnv-v1-jog-45.0M_3/model_44000000_steps.zip",
+      "model_data/pybullet/2023-05-26-HumanoidDeepMimicBackflipBulletEnv-v1-deepmimic-pybullet-45.0M_1/model_42000000_steps.zip",
+      "model_data/pybullet/2023-05-28-HumanoidDeepMimicBulletEnv-v1-cartwheel-45.0M_3/model_40000000_steps.zip",
+      "model_data/pybullet/2023-05-30-HumanoidDeepMimicBulletEnv-v1-getup_facedown-45.0M_4/model_43200000_steps.zip",
+      "model_data/pybullet/2023-05-30-HumanoidDeepMimicBulletEnv-v1-dance_a-45.0M_1/model_38000000_steps.zip"
+    ]
   },
   "train_hyp_params": {
     "learning_rate": {
