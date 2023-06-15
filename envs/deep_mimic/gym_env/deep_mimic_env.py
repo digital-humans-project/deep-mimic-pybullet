@@ -64,7 +64,7 @@ class HumanoidDeepBulletEnv(gym.Env):
             path = data.getDataPath() + "/args/" + arg_file
             succ = self._arg_parser.load_file(path)
             Logger.print2(arg_file)
-        assert succ, Logger.print2("Failed to load args from: " + arg_file)
+        assert succ, "Failed to load args from: " + arg_file
 
         self._p = None
         self._time_step = time_step
@@ -209,6 +209,11 @@ class HumanoidDeepBulletEnv(gym.Env):
         return [seed]
 
     def step(self, action):
+        hh = self._internal_env._humanoid
+        # linVelSim, angVelSim = hh._pybullet_client.getBaseVelocity(hh._sim_model)
+        # linVelSim = np.array(linVelSim)
+        # linVelSim[0] += 0.005
+        # hh._pybullet_client.resetBaseVelocity(hh._sim_model, linVelSim, angVelSim)
         agent_id = self.agent_id
 
         if self._rescale_actions:
@@ -244,7 +249,7 @@ class HumanoidDeepBulletEnv(gym.Env):
 
         # Record done
         done = self._internal_env.is_episode_end()
-
+        # done = False
         rootPosSim, rootOrnSim = self._internal_env._humanoid._pybullet_client.getBasePositionAndOrientation(self._internal_env._humanoid._sim_model)
         rootPosKin, rootOrnKin = self._internal_env._humanoid._pybullet_client.getBasePositionAndOrientation(self._internal_env._humanoid._kin_model)
         rootPosKin = np.array(rootPosKin)
