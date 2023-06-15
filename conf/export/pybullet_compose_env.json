@@ -6,7 +6,7 @@
     "fps": 60,
     "max_steps": 1000,
     "max_length": 10,
-    "out_dir": "export/compose"
+    "out_dir": "export/compose2"
   },
   "train_hyp_params": {
     "learning_rate": {
@@ -29,8 +29,8 @@
   },
   "env_params": {
     "renders": false,
-    "arg_file": "run_humanoid3d_walk_args.txt",
-    "test_mode": false,
+    "arg_file": "run_humanoid3d_backflip_args.txt",
+    "test_mode": true,
     "time_step": 0.004166666666666667,
     "rescale_actions": true,
     "rescale_observations": true,
