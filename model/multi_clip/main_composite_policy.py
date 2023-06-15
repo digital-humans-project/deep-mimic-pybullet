@@ -7,7 +7,7 @@ import time
 import matplotlib
 from tqdm import tqdm
 
-from model.composite_policy import ComposeActorCriticPolicy
+from model.selection_policy import ComposeActorCriticPolicy
 from model.envs.video_recoder import VecVideoRecorder
 
 matplotlib.use("Agg")
@@ -27,10 +27,10 @@ if __name__ == "__main__":
     model_files = [
         "model_data/pybullet/2023-05-29-HumanoidDeepMimicBulletEnv-v1-walk-45.0M_1/model_38000000_steps.zip",
         "model_data/pybullet/2023-05-28-HumanoidDeepMimicBulletEnv-v1-jog-45.0M_3/model_44000000_steps.zip",
-        # "model_data/pybullet/2023-05-26-HumanoidDeepMimicBackflipBulletEnv-v1-deepmimic-pybullet-45.0M_1/model_42000000_steps.zip",
-        # "model_data/pybullet/2023-05-28-HumanoidDeepMimicBulletEnv-v1-cartwheel-45.0M_3/model_40000000_steps.zip",
-        # "/home/howyoung/Code/eth/digital-humans/deep-mimic-pybullet-run/logs/2023-05-30-HumanoidDeepMimicBulletEnv-v1-getup_facedown-45.0M_4/model_43200000_steps.zip",
-        # "model_data/pybullet/2023-05-30-HumanoidDeepMimicBulletEnv-v1-dance_a-45.0M_1/model_38000000_steps.zip",
+        "model_data/pybullet/2023-05-26-HumanoidDeepMimicBackflipBulletEnv-v1-deepmimic-pybullet-45.0M_1/model_42000000_steps.zip",
+        "model_data/pybullet/2023-05-28-HumanoidDeepMimicBulletEnv-v1-cartwheel-45.0M_3/model_40000000_steps.zip",
+        "/home/howyoung/Code/eth/digital-humans/deep-mimic-pybullet-run/logs/2023-05-30-HumanoidDeepMimicBulletEnv-v1-getup_facedown-45.0M_4/model_43200000_steps.zip",
+        "model_data/pybullet/2023-05-30-HumanoidDeepMimicBulletEnv-v1-dance_a-45.0M_1/model_38000000_steps.zip",
     ]
 
     with open(config, "r") as f:
@@ -66,7 +66,7 @@ if __name__ == "__main__":
     # =============
     # start playing
     # =============
-    episodes = 1000
+    episodes = 200
     frame_rate = 60
 
     # output = cv.VideoWriter("test.mp4", cv.VideoWriter_fourcc(*"MP4V"), 15, (1280, 960))
@@ -79,6 +79,10 @@ if __name__ == "__main__":
         # action, _ = models[0].policy.predict(obs, deterministic=False)
         # print((action - action1))
         obs, reward, done, info = eval_env.step(action)
+        if done[0]:
+            comp_policy.reset()
+            print("reset")
+        eval_env.render()
 
         # print("now phase", obs[-1])
 

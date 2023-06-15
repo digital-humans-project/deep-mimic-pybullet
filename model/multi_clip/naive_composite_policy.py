@@ -5,7 +5,7 @@ from stable_baselines3.common.policies import ActorCriticPolicy, BasePolicy
 from torch import Tensor, nn
 
 
-class ComposeActorCriticPolicy(BasePolicy):
+class NaiveComposeActorCriticPolicy(BasePolicy):
     def __init__(
         self,
         policies: List[ActorCriticPolicy],
